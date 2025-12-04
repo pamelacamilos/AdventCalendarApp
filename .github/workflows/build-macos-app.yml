@@ -26,8 +26,8 @@ jobs:
 
     - name: Build .app with PyInstaller
       run: |
-        pyinstaller --console --name AdventCalendarApp main.py
-
+        pyinstaller --console --hidden-import=PIL._tkinter_finder --name AdventCalendarApp main.py
+ 
     - name: Upload .app bundle
       uses: actions/upload-artifact@v4
       with:
