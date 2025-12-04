@@ -26,18 +26,11 @@ jobs:
 
     - name: Build .app with PyInstaller
       run: |
-        pyinstaller --windowed --name AdventCalendarApp main.py
+        pyinstaller --console --name AdventCalendarApp main.py
 
     - name: Upload .app bundle
       uses: actions/upload-artifact@v4
       with:
         name: macOS-app
         path: dist/AdventCalendarApp.app
-
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: dist/AdventCalendarApp.app
-        tag: ${{ github.ref_name }}
-
 
