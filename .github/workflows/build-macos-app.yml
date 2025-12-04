@@ -34,3 +34,10 @@ jobs:
         name: macOS-app
         path: dist/AdventCalendarApp.app
 
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: dist/AdventCalendarApp.app
+        tag: ${{ github.ref_name }}
+
+
