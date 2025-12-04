@@ -5,7 +5,7 @@ import myclasses as cl
 from functools import partial
 
 # Main program
-my_messages = cl.get_messages('pamela')
+my_messages = cl.get_messages('emma')
 
 root = tk.Tk()
 root.title("Advent Calendar")
