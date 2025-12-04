@@ -28,9 +28,30 @@ jobs:
       run: |
         pyinstaller --console --hidden-import=PIL._tkinter_finder --name AdventCalendarApp main.py
  
-    - name: Upload .app bundle
-      uses: actions/upload-artifact@v4
+    - name: Zip macOS app
+      run: |
+            cd dist
+            zip -r AdventCalendar.zip AdventCalendar.app
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: macOS-app
-        path: dist/*
+        tag_name: v{{ github.run_number }}
+        release_name: Release ${{ github.run_number }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/AdventCalendar.zip
+        asset_name: AdventCalendar.zip
+        asset_content_type: application/zip
+
 
